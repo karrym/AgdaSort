@@ -39,10 +39,6 @@ iSorted : (xs : List ℕ) → Sorted (isort xs)
 iSorted [] = snull
 iSorted (x ∷ xs) = lem-isorted x (isort xs) (iSorted xs)
 
-perm-refl : {A : Set} → {xs : List A} → Permutation xs xs
-perm-refl {A} {[]} = pnull
-perm-refl {A} {x ∷ xs} = pskip perm-refl
-
 lem-iperm : (x : ℕ) (xs : List ℕ) → Permutation (x ∷ xs) (insert x xs)
 lem-iperm x [] = pskip pnull
 lem-iperm x (y ∷ []) with x ≤? y

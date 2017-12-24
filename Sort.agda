@@ -24,3 +24,7 @@ data Permutation {A} : List A → List A → Set where
     pskip : {x : A} {xs ys : List A} → Permutation xs ys → Permutation (x ∷ xs) (x ∷ ys)
     pswap : {x y : A} {xs : List A} → Permutation (x ∷ y ∷ xs) (y ∷ x ∷ xs)
     ptrans : {xs ys zs : List A} → Permutation xs ys → Permutation ys zs → Permutation xs zs
+
+perm-refl : {A : Set} {xs : List A} → Permutation xs xs
+perm-refl {A} {[]} = pnull
+perm-refl {A} {x ∷ xs} = pskip perm-refl
