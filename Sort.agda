@@ -10,9 +10,9 @@ open import Data.Empty
 open import Relation.Binary.PropositionalEquality
 
 data Sorted : List ℕ → Set where
-    snull : Sorted []
-    scons1 : {x : ℕ} → Sorted (x ∷ [])
-    scons : {x y : ℕ} {ys : List ℕ} → x ≤ y → Sorted (y ∷ ys) → Sorted (x ∷ y ∷ ys)
+    s[] : Sorted []
+    s[n] : {x : ℕ} → Sorted (x ∷ [])
+    s∷ : {x y : ℕ} {ys : List ℕ} → x ≤ y → Sorted (y ∷ ys) → Sorted (x ∷ y ∷ ys)
 
 lem-≤ : {x y : ℕ} → ¬ (x ≤ y) → y ≤ x
 lem-≤ {x} {y} x≰y with ≤-total x y

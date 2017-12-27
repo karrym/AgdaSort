@@ -23,20 +23,20 @@ step-insert {x} {y} {ys} x≰y with x ≤? y
 ... | no x≰y₁ = refl
 
 lem-isorted : (x : ℕ) → (xs : List ℕ) → Sorted xs → Sorted (insert x xs)
-lem-isorted x [] s = scons1
+lem-isorted x [] s = s[n]
 lem-isorted x (y ∷ ys) s with x ≤? y
-... | yes x≤y = scons x≤y s
-lem-isorted x (y ∷ []) scons1 | no x≰y = scons (lem-≤ x≰y) scons1
-lem-isorted x (y ∷ (z ∷ zs)) (scons y≤z s) | no x≰y with x ≤? z
-...     | yes x≤z = scons (lem-≤ x≰y) (scons x≤z s)
-...     | no x≰z  = scons y≤z (subst Sorted (step-insert x≰z) (lem-isorted x (z ∷ zs) s))
+... | yes x≤y = s∷ x≤y s
+lem-isorted x (y ∷ []) s[n] | no x≰y = s∷ (lem-≤ x≰y) s[n]
+lem-isorted x (y ∷ (z ∷ zs)) (s∷ y≤z s) | no x≰y with x ≤? z
+...     | yes x≤z = s∷ (lem-≤ x≰y) (s∷ x≤z s)
+...     | no x≰z  = s∷ y≤z (subst Sorted (step-insert x≰z) (lem-isorted x (z ∷ zs) s))
 
 isort : List ℕ → List ℕ
 isort [] = []
 isort (x ∷ xs) = insert x (isort xs)
 
 iSorted : (xs : List ℕ) → Sorted (isort xs)
-iSorted [] = snull
+iSorted [] = s[]
 iSorted (x ∷ xs) = lem-isorted x (isort xs) (iSorted xs)
 
 lem-iperm : (x : ℕ) (xs : List ℕ) → Permutation (x ∷ xs) (insert x xs)
