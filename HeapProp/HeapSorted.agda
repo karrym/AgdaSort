@@ -53,17 +53,6 @@ mergeSize {∧ x l₁ r₁} {∧ y l₂ r₂} with x ≤? y
 mergeSize< : {x : ℕ}{l r : Heap ℕ} → heapSize (mergeHeap l r) < heapSize (∧ x l r)
 mergeSize< {x}{l}{r} rewrite mergeSize {l}{r} = s≤s ≤-refl
 
-{-
-lem-fromHeap : (x : Heap ℕ) → IsHeap x → Sorted (fromHeap (heapSize x) x)
-lem-fromHeap .E h[] = s[]
-lem-fromHeap .(∧ n E E) (h[n] n) = s[n]
-lem-fromHeap (∧ x E (∧ y ly ry)) (hE← hy x≤y) = s∷ x≤y (lem-fromHeap (∧ y ly ry) hy)
-lem-fromHeap (∧ x (∧ y ly ry) E) (hE→ hy x≤y) = s∷ x≤y (subst Sorted (cong (λ e → y ∷ fromHeap e (mergeHeap ly ry)) (sym (+-identityʳ (heapSize ly + heapSize ry)))) (lem-fromHeap (∧ y ly ry) hy))
-lem-fromHeap (∧ x t₁@(∧ x₁ l₁ r₁) t₂@(∧ x₂ l₂ r₂)) (h∧ h₁ h₂ (x≤x₁ , x≤x₂)) with x₁ ≤? x₂
-... | yes x₁≤x₂ = s∷ x≤x₁ {! lem-fromHeap (mergeHeap t₁ t₂) (lem-mergeHeap t₁ t₂ h₁ h₂)  !}
-... | no x₁≰x₂  = {!   !}
--}
-
 _⟪_ : {A : Set} → Rel (Heap A) Level.zero
 _⟪_ = _<_ on heapSize
 
